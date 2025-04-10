@@ -13,8 +13,11 @@ interface ToolDetailProps {
 }
 
 export default async function ToolDetail({ params }: ToolDetailProps) {
-  const id: string = String(params.id);
+  // Await params before accessing its properties
+  const resolvedParams = await params;
+  const id: string = String(resolvedParams.id);
   const tool = await fetchToolById(id);
+  
   if (!tool) {
     notFound();
   }
